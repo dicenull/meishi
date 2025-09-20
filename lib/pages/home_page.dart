@@ -15,9 +15,31 @@ class HomePage extends HookConsumerWidget {
     return Scaffold(
       body: RotatedBox(
         quarterTurns: isPortrait ? 1 : 0,
-        child: AspectRatio(
-          aspectRatio: 1.65 / 1,
-          child: _Meishi(size: size),
+        child: Stack(
+          children: [
+            Positioned.fill(child: Container(color: Colors.white)),
+            AspectRatio(
+              aspectRatio: 1.65 / 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.8),
+                        blurRadius: 8,
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: const Color(0xFFf7f0e8),
+                    child: _Meishi(size: size),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
