@@ -9,77 +9,92 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.sizeOf(context);
-    const textColor = Color(0xFF333333);
-
     final isPortrait = size.height >= size.width;
-    // 回転させて表示
 
     return Scaffold(
       body: RotatedBox(
         quarterTurns: isPortrait ? 1 : 0,
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              child: _TriangleBanner(
-                size: Size(size.width * 0.1, size.width * 0.1),
+        child: AspectRatio(
+          aspectRatio: 1.65 / 1,
+          child: _Meishi(size: size),
+        ),
+      ),
+    );
+  }
+}
+
+class _Meishi extends StatelessWidget {
+  const _Meishi({
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    const textColor = Color(0xFF333333);
+
+    return Stack(
+      children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          child: _TriangleBanner(
+            size: Size(size.width * 0.1, size.width * 0.1),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(size.width * 0.08),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '初星学園　プロデューサー科',
+                style: textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(size.width * 0.08),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const Gap(16),
+              SelectableText(
+                'ダイス',
+                style: textTheme.displayLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
+              ),
+              const Gap(4),
+              Text(
+                '@dicenull',
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
+              ),
+              const Spacer(),
+              const Row(
                 children: [
-                  Text(
-                    '初星学園　プロデューサー科',
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: textColor,
-                    ),
-                  ),
-                  const Gap(16),
-                  SelectableText(
-                    'ダイス',
-                    style: textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-                  const Gap(4),
+                  Icon(Icons.home_outlined, size: 16, color: textColor),
+                  Gap(2),
+                  Text('6VN36M29', style: TextStyle(color: textColor)),
+                ],
+              ),
+              const Row(
+                children: [
+                  Icon(Icons.person_outlined, size: 16, color: textColor),
+                  Gap(2),
                   Text(
                     '@dicenull',
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-                  const Spacer(),
-                  const Row(
-                    children: [
-                      Icon(Icons.home_outlined, size: 16, color: textColor),
-                      Gap(2),
-                      Text('6VN36M29', style: TextStyle(color: textColor)),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      Icon(Icons.person_outlined, size: 16, color: textColor),
-                      Gap(2),
-                      Text(
-                        '@dicenull',
-                        style: TextStyle(color: textColor),
-                      ),
-                    ],
+                    style: TextStyle(color: textColor),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
